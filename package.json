@@ -9,7 +9,7 @@
     "build": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish.js",
     "clean": "rimraf dist lib",
     "lint": "eslint src",
-    "prepublish": "npm run clean && npm run build",
+    "prepublish": "npm run clean && npm run build"
   },
   "files": [
     "dist",
@@ -29,9 +29,9 @@
   "author": "Pierre Criulanscy <pcriulan@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/PCreations/moduxjs/issues"
+    "url": "https://github.com/PCreations/modux-js/issues"
   },
-  "homepage": "https://github.com/PCreations/moduxjs#readme",
+  "homepage": "https://github.com/PCreations/modux-js#readme",
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-eslint": "^6.1.2",
@@ -81,5 +81,9 @@
     "lodash.uniqueid": "^4.0.1",
     "redux": "^3.5.2",
     "redux-saga": "^0.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PCreations/modux-js.git"
   }
 }
