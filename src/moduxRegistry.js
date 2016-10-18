@@ -4,14 +4,14 @@ const moduxRegistry = () => {
   const moduxes = {}
   const moduxesNames = {}
   const adjacencyMap = {}
-  const familyCache = {}
+  const parentsCache = {}
 
   return {
     __debug__: {
       moduxes,
       moduxesNames,
       adjacencyMap,
-      familyCache,
+      parentsCache,
       logTree() {
         let treeRoot
         for (let key of Object.keys(adjacencyMap)) {
@@ -45,17 +45,17 @@ const moduxRegistry = () => {
     },
     isChild(myId, id) {
       if (myId === id) return true
-      if (myId in (familyCache[id] || [])) return true
+      if ((parentsCache[myId] || []).indexOf(id) !== -1) return true
 
       let currentNode = adjacencyMap[id]
       while (typeof currentNode !== 'undefined' && currentNode !== myId) {
         currentNode = adjacencyMap[currentNode]
       }
       if (currentNode === myId) {
-        familyCache[id] = [
-          ...(familyCache[id] || []),
-          myId
-        ]
+        parentsCache[myId] = (parentsCache[myId] || []).indexOf(id) === -1 ? [
+          ...(parentsCache[myId] || []),
+          id
+        ] : parentsCache[myId]
         return true
       }
       return false

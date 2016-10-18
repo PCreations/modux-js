@@ -103,7 +103,14 @@ export default function(parentId, localSelector, initialState) {
           ...sagas,
           ...childrenSagas
         ]
-        yield sagas
+        try {
+          yield sagas
+        }
+        catch(err) {
+          if (process.env.NODE_ENV !== 'production') {
+            console.err(err)
+          }
+        }
       }
       return rootSaga
     }
