@@ -18,6 +18,10 @@
     "transform-object-rest-spread",
     "transform-react-jsx",
     "transform-regenerator",
-    "syntax-jsx"
+    "syntax-jsx",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
   ]
 }
