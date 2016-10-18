@@ -1,6 +1,6 @@
 {
   "name": "modux-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Seamlessly build modular, encapsulated, fractable redux apps",
   "scripts": {
     "build:lib": "babel src --out-dir lib",
