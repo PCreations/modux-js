@@ -1,0 +1,3 @@
+Lightweight framework to seamlessly build modular, encapsulated, fractable redux apps
+
+Documentation to come...
