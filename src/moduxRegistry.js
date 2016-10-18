@@ -28,7 +28,7 @@ const moduxRegistry = () => {
             }
           }
           return {
-            label: `${moduxesNames[parent] || 'root'} | ${parent}`,
+            label: (moduxesNames[parent] || 'root') + ' | ' + parent,
             nodes
           }
         }

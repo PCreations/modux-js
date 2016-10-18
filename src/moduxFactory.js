@@ -11,7 +11,6 @@ export default function(getModuxSpecs) {
     const id = uniqueid()
     let localSelector = typeof mountPoint === 'object' ? mountPoint.localSelector : (state) => typeof mountPoint === 'undefined' ? state : state[mountPoint]
     mountPoint = typeof mountPoint === 'object' ? mountPoint.mountPoint : mountPoint
-    localSelector.debug = `state => ${typeof mountPoint === 'undefined' ? 'state' : `state[${mountPoint}]`}`
     let context = contextFactory(id, localSelector, initialState)
     let moduxSpec = getModuxSpecs(context)
 

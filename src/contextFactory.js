@@ -61,7 +61,7 @@ export default function(parentId, localSelector, initialState) {
           return typeof state === 'undefined' ? {} : state
         }
       }
-      invariant(this._assertReducerSanity(reducer, Object.keys(childrenReducers).length > 0), `${mountPoint} does have children and thus its initReducer method must return a combination obtained with combineReducers. ${reducer()} was returned instead`)
+      invariant(this._assertReducerSanity(reducer, Object.keys(childrenReducers).length > 0), mountPoint + ' does have children and thus its initReducer method must return a combination obtained with combineReducers.' + (reducer()) + ' was returned instead')
       if (Object.keys(moduxesIdByMountPoint).length === 0) {
         return reducer
       }
