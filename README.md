@@ -1,4 +1,4 @@
-**/!\ DISCLAIMER : `modux-js` is only a proof of concept, there is no tests coverage and it probably won't scale as is. Feedbacks are very welcommed :) **
+**/!\ DISCLAIMER : `modux-js` is only a proof of concept, there is no tests coverage and it probably won't scale as is. Feedbacks are very welcommed :)**
 
 # [modux-js](https://github.com/PCreations/modux-js)
 
