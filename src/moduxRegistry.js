@@ -40,6 +40,9 @@ const moduxRegistry = () => {
       moduxes[modux.id] = modux
       moduxesNames[modux.id] = mountPoint
     },
+    isEmpty() {
+      return Object.keys(moduxes).length === 0
+    },
     get(id) {
       return moduxes[id]
     },

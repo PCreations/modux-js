@@ -7,7 +7,7 @@ import localReducerFactory from './localReducerFactory'
 import contextFactory from './contextFactory'
 
 export default function(getModuxSpecs) {
-  return (mountPoint, initialState) => {
+  const createInstance = (mountPoint, initialState) => {
     const id = uniqueid()
     let localSelector = typeof mountPoint === 'object' ? mountPoint.localSelector : (state) => typeof mountPoint === 'undefined' ? state : state[mountPoint]
     mountPoint = typeof mountPoint === 'object' ? mountPoint.mountPoint : mountPoint
@@ -39,4 +39,6 @@ export default function(getModuxSpecs) {
       id
     }
   }
+  createInstance.rootFlag = true
+  return createInstance
 }

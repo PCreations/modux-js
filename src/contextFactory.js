@@ -14,6 +14,7 @@ export default function(parentId, localSelector, initialState) {
         localSelector: (state) => localSelector(state)[mountPoint.mountPoint],
         mountPoint
       }
+      moduxFactory.rootFlag = false
       const modux = moduxFactory(mountPoint, initialState)
       moduxesIdByMountPoint[mountPoint.mountPoint] = modux.id
       ModuxRegistry.add(parentId, modux, mountPoint.mountPoint)
@@ -48,7 +49,7 @@ export default function(parentId, localSelector, initialState) {
         return childrenReducers
       }
       let childrenReducers = getChildrenReducers()
-      if (typeof mountPoint === 'undefined' || (Object.keys(childrenReducers).length > 0 && typeof reducer === 'undefined')) {
+      if (Object.keys(childrenReducers).length > 0 && typeof reducer === 'undefined') {
         return combineReducers(childrenReducers)
       }
       if (Object.keys(childrenReducers).length === 0 && typeof reducer === 'undefined') {
@@ -63,10 +64,16 @@ export default function(parentId, localSelector, initialState) {
       }
       invariant(this._assertReducerSanity(reducer, Object.keys(childrenReducers).length > 0), mountPoint + ' does have children and thus its initReducer method must return a combination obtained with combineReducers.' + (reducer()) + ' was returned instead')
       if (Object.keys(moduxesIdByMountPoint).length === 0) {
-        return reducer
+        return typeof mountPoint === 'undefined' ? reducer : (
+          ModuxRegistry.isEmpty() ? combineReducers({ [mountPoint]: reducer }) : reducer
+        )
+      }
+      if (typeof mountPoint === 'undefined') {
+        if (Object.keys(childrenReducers).length === 0) {
+          return reducer
+        }
       }
       return (state, action) => {
-        const _mountPoint = mountPoint
         let defaultStateFromReducer = reducer()
         let stateForMyReducer = typeof state === 'undefined' ? undefined : { ...state }
         if (typeof stateForMyReducer !== 'undefined' && typeof defaultStateFromReducer === 'object') {
