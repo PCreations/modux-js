@@ -34,7 +34,7 @@ Seem's complicated ? Let's take a very basic example.
 
 First, let's create a `counter.js` file and write in it what we are used to write when working with redux (i.e, reducer, actions, views, etc.)
 
-```
+```javascript
 import React from 'react'
 import connect from 'react-redux'
 
@@ -73,7 +73,7 @@ const CounterContainer = connect(
 ```
 
 It's a very basic counter example, it's pure vanilla redux, **and we are assuming that the counter's reducer will be mounted at the root of our store**. Our state will have this shape :
-```
+```javascript
 state = {
   value: 42
 }
@@ -84,7 +84,7 @@ If we want to add another counter or even mount it in another place, we're stuck
 Let's put aside the `counter.js` file for now and create a brand new `counter-modux-factory.js` file (the name actually doesn't matter) :
 
 *counter-modux-factory.js*
-```
+```javascript
 import moduxFactory from 'modux-js'
 
 export default moduxFactory(/* TODO */)
@@ -93,7 +93,7 @@ export default moduxFactory(/* TODO */)
 So, our `counter-modux-factory.js` file exports a `moduxFactory` but we need to tell it how to build our `counter` modux. `moduxFactory` takes only one argument : a function that returns the specifications for building our modux. Don't be afraid, is very simple, let's move one step further:
 
 *counter-modux-factory.js*
-```
+```javascript
 import moduxFactory from 'modux-js'
 
 const getCounterSpecifications = () => { /* TODO */ }
@@ -104,7 +104,7 @@ export default moduxFactory(getCounterSpecifications)
 The `getCounterSpecifications` (the name is pretty verbose but it's for the sake of the example) must return an object with this shape :
 
 *counter-modux-factory.js*
-```
+```javascript
 import moduxFactory from 'modux-js'
 
 const getCounterSpecifications = () => ({
@@ -120,7 +120,7 @@ export default moduxFactory(getCounterSpecifications)
 You can see the specifications object returned by `getCounterSpecifications`  from being sort of class declaration if you find it easier to reason about. Let's populate that by injecting the code we have in our `counter.js` file :
 
 *counter-modux-factory.js*
-```
+```javascript
 import moduxFactory from 'modux-js'
 
 export const init = (value) => { value }
@@ -172,7 +172,7 @@ export default moduxFactory(getCounterSpecifications)
 That's it ! We encapsulated our vanilla counter redux module into a `moduxFactory`.  `moduxFactory` returns a function  that you can use to instantiate a `modux` given a mount point in the state and an initial state. Let's create a `root.js` file to do that :
 
 *root.js*
-```
+```javascript
 import counterModuxFactory, { init as initCounter } from './counterModuxFactory'
 
 const root = counterModuxFactory('counter', initCounter(42))
@@ -192,7 +192,7 @@ export default root
 No we just need to let redux knows about the counter reducer. We need to do that as we used to do, in a `configureStore.js` file for example :
 
 *configureStore.js*
-```
+```javascript
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
 import root from './root'
@@ -321,7 +321,7 @@ Let's implement that :
 This one sounds familiar, we just need to take the code from above (with some subtle changes such as returning from reducer the value directly instead of `{ value }`, for brevity) :
 
 *counter.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import moduxFactory from 'modux-js'
@@ -380,7 +380,7 @@ export default moduxFactory(context => {
 This one is also pretty straightforward :
 
 *button.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { combineReducers } from 'redux'
@@ -447,7 +447,7 @@ This one is very interesting. We need to handle asynchronous fetching of a gif f
 Let's start by the simplest part :
 
 *gif-viewer.js*
-```
+```javascript
 import React from 'react'
 import { combineReducers } from 'redux'
 import { connect } from 'react-redux'
@@ -515,7 +515,7 @@ So far so good, our `gif-viewer` modux is ready to reduce futures `REQUEST_MORE`
 Let's move one step further and add the `fetchGif` effect :
 
 *gif-viewer.js*
-```
+```javascript
 import React from 'react'
 import { combineReducers } from 'redux'
 import { connect } from 'react-redux'
@@ -539,7 +539,7 @@ We now need to write the saga that will :
 Here we are :
 
 *gif-viewer.js*
-```
+```javascript
 import React from 'react'
 import { take, put, call, fork, select } from 'redux-saga/effects'  // don't forget these imports
 import { combineReducers } from 'redux'
@@ -584,7 +584,7 @@ export default moduxFactory(context => ({
 Now we can write the missing `initView` function :
 
 *gif-viewer.js*
-```
+```javascript
 [...]
 
 export default moduxFactory(context => ({
@@ -627,7 +627,7 @@ export default moduxFactory(context => ({
 Moduxes composition is at the heart of `modux-js`. We are going to discover that by implementing the `gif-viewer-pair` modux. Let's start by some boilerplate :
 
 *gif-viewer-pair.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { put, call } from 'redux-saga/effects'  // we are going to need these effects
@@ -655,7 +655,7 @@ One thing that might surprise you is there is no `initReducer` function in this 
 What we want to do is adding to our `gif-viewer-pair` modux specifications that we want two `gif-viewer` moduxes instance in each `gif-viewer-pair` modux instance. Remember how we instantiated the `counter` modux earlier for the first example ? We might be tempted to do something like this :
 
 *gif-viewer-pair.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { put, call } from 'redux-saga/effects'  // we are going to need these effects
@@ -698,7 +698,7 @@ The `context` object is an interface to the own root of an instantiated modux. I
 Here we need the `context.add` method :
 
 *gif-viewer-pair.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { put, call } from 'redux-saga/effects'  // we are going to need these effects
@@ -729,7 +729,7 @@ When adding moduxes in context via `context.add`, `modux-js` knows how to combin
 Let's write our view now :
 
 *gif-viewer-pair.js*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { put, call } from 'redux-saga/effects'  // we are going to need these effects
@@ -770,7 +770,7 @@ That's it, all we have to do is to retrieve the view for the `gif-viewer` mounte
 The last part of the `gif-viewer-pair` modux is to be able to load both its `gif-viewer`s moduxes when user clicks on a "load both !" button. First, we need to create a specific action creator :
 
 *gif-viewer-pair.js*
-```
+```javascript
 [...]
 export const types = {
   LOAD_BOTH: 'modux-js-examples/gif-viewer-pair/LOAD_BOTH'
@@ -798,7 +798,7 @@ Pretty straightforward, let's implement the `initSaga` function now. The root sa
  - puts the `REQUEST_MORE` action of the left and right `gif-viewer`s.
 
 *gif-viewer-pair.js*
-```
+```javascript
 [...]
 
 export default moduxFactory(context => {
@@ -833,7 +833,7 @@ All we have to do is to `put` the `requestMore()` action that is part of public 
 Nothing new here, it's the same principles that above excepted that we npw `put` the `loadBoth` actions of `gif-viewer-pair` moduxes when we want to "load them all !" :
 
 *gif-viewer-pair-pair*
-```
+```javascript
 import React from 'react'
 import { connect } from 'react-redux'
 import { put, call } from 'redux-saga/effects'
@@ -927,7 +927,7 @@ Remember our initial specifications for this challenge ?
 We'll need both the state of the `counter` modux and the `button` modux. Let's create a new (*with a very verbose name*) modux :
 
 *new-gif-counter-and-button.js*
-```
+```javascript
 import { take, put, select } from 'redux-saga/effects';
 import moduxFactory from 'modux-js'
 
@@ -981,7 +981,7 @@ Have fun :) !
 To tie it all together, we just need to create some *root.js* (again, the name doesn't matter) that add all these moduxes in it's own context :
 
 *root.js*
-```
+```javascript
 import React from 'react'
 import moduxFactory from 'modux-js'
 
@@ -1045,7 +1045,7 @@ export default moduxFactory(context => {
 Now we need to tell redux about the `root` reducer and saga as we are accustomed to do it :
 
 *in some configureStore.js file*
-```
+```javascript
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createLogger from 'redux-logger'
@@ -1074,7 +1074,7 @@ export default function configureStore(initialState) {
 ```
 
 And finally, in your react entry point :
-```
+```javascript
 import React from 'react';
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom';
@@ -1093,7 +1093,7 @@ ReactDOM.render(
 ### Debugging
 
 Since this library is just a POC for the moment, a global variable `ModuxRegistry` is exported. The most useful part is the method to log the moduxes tree in the console by calling `ModuxRegistry.__debug__.logTree()`. For the example above it prints :
-```
+```javascript
 root | 1
 ├─┬ newGifCounterAndButton | 2
 │ ├── counter | 3
