@@ -1,6 +1,6 @@
 {
   "name": "modux-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./lib/index.js",
   "description": "Seamlessly build modular, encapsulated, fractable redux apps",
   "scripts": {
