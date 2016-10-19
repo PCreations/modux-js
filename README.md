@@ -11,7 +11,7 @@
 The main goal of this project is to let you write vanilla **[redux](http://github.com/reactjs/redux)** and let **modux-js** encapsulate it for you by scoping your actions, reducers, selectors and sagas. Your moduxes are only aware of their own **context**.
 Since `modux-js` uses vanilla redux you are totally free to use all the usual and cool stuff :
 
-* [DevTools] & Time Travel (https://github.com/zalmoxisus/redux-devtools-extension)
+* [DevTools](https://github.com/zalmoxisus/redux-devtools-extension) & Time Travel
 * Immutable state
 * Easy unit testing
 
