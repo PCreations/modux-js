@@ -6,10 +6,12 @@ import invariant from 'invariant'
 import ModuxRegistry from './moduxRegistry'
 import localSelectors from './localSelectors'
 
+let root = true
 export default function(parentId, localSelector, initialState) {
   const moduxesIdByMountPoint = {}
   return {
     add(moduxFactory, mountPoint, initialState) {
+      root = false
       mountPoint = {
         localSelector: (state) => localSelector(state)[mountPoint.mountPoint],
         mountPoint
@@ -65,7 +67,7 @@ export default function(parentId, localSelector, initialState) {
       invariant(this._assertReducerSanity(reducer, Object.keys(childrenReducers).length > 0), mountPoint + ' does have children and thus its initReducer method must return a combination obtained with combineReducers.' + (reducer()) + ' was returned instead')
       if (Object.keys(moduxesIdByMountPoint).length === 0) {
         return typeof mountPoint === 'undefined' ? reducer : (
-          ModuxRegistry.isEmpty() ? combineReducers({ [mountPoint]: reducer }) : reducer
+          root ? combineReducers({ [mountPoint]: reducer }) : reducer
         )
       }
       if (typeof mountPoint === 'undefined') {

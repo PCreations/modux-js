@@ -18,7 +18,6 @@ export default function(id) {
       : typeof pattern === 'function' ? action => isChild(id, getIdFromAction(action)) && pattern(action)
       : action => isChild(id, getIdFromAction(action)) && action.type === pattern
     )
-    console.log("waiting for take with matcher for id ", id, matcher)
     return take(matcher)
   }
 }
