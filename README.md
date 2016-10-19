@@ -1,4 +1,4 @@
-*/!\ DISCLAIMER : `modux-js` is only a proof of concept, there is no tests coverage and it probably won't scale as is. Feedbacks are very welcommed :) *
+**/!\ DISCLAIMER : `modux-js` is only a proof of concept, there is no tests coverage and it probably won't scale as is. Feedbacks are very welcommed :) **
 
 # [modux-js](https://github.com/PCreations/modux-js)
 
@@ -1119,3 +1119,6 @@ The label is the mount key given at instantiation (by `context.add`). The number
 ### A word on action types
 
 Action types are **NOT** scoped to the modux. I wanted to avoid action namespacing to be able to simply catch global actions. I prefer to name my action type with a scoped name, as we are accustomed to do in vanilla flux.
+
+[npm-image]: https://img.shields.io/npm/v/modux-js.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/modux-js
