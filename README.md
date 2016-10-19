@@ -229,23 +229,29 @@ In real project, you'll only need to manually instantiate a modux like this for 
 We're going to create [this](https://pcreations.github.io/modux-js-examples/). Before diving into the code, let's see what are the different components here.
 
 First, we have a basic togglable on/off button :
+
 ![button off](http://imageshack.com/a/img923/4551/cNLi7r.png) ![button on](http://imageshack.com/a/img921/5531/h1kaJx.png)
 
 Just bellow the button there is a counter value component that just displays its value:
+
 ![counter value](http://imageshack.com/a/img923/5540/slWrOh.png)
 
 We also have a gif viewer component that given a topic will fetch random gif on giphy when the "more please" button is clicked :
+
 ![high five gif viewer](http://imageshack.com/a/img922/9703/qdsys7.png)
 
 Bellow there is a gif viewer pair box :
+
 ![gif viewer pair](http://imageshack.com/a/img921/3996/9tocsU.png)
 This box contains two gif viewers with the subtle addition of a "Load both !" button that load both gifs
 
 Then we have a pair of gif viewer pair boxes :
+
 ![pair of gif viewers pair](http://imageshack.com/a/img921/6081/8SgR9n.png)
 This box contains two gif viewer pairs and a "Load all of them !" button to load them all.
 
 The last part of this page contains an input to generate gif viewers on the fly. Just enter any topic you want a gif viewer for, press enter, and a new gif viewer for this topic appears :
+
 ![dogs gif viewer](http://imageshack.com/a/img921/5725/7DDbI3.png)
 
 That's the result of a challenge initiated by [Sébastien Lorber](https://github.com/slorber) in his repo [Scalable frontend, with Elm or Redux](https://github.com/slorber/scalable-frontend-with-elm-or-redux). I just copy-paste the challenge here :
@@ -622,7 +628,7 @@ export default moduxFactory(context => ({
 
 ```
 
-### The gif-viewer-pair modux : introduction moduxes composition
+### The gif-viewer-pair modux : introducing moduxes composition
 
 Moduxes composition is at the heart of `modux-js`. We are going to discover that by implementing the `gif-viewer-pair` modux. Let's start by some boilerplate :
 
